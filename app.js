@@ -2,44 +2,34 @@ var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
+    flash       = require("connect-flash"),
     passport    = require("passport"),
-    cookieParser = require("cookie-parser"),
     LocalStrategy = require("passport-local"),
-    flash        = require("connect-flash"),
+    methodOverride = require("method-override"),
     Campground  = require("./models/campground"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
-    session = require("express-session"),
-    seedDB      = require("./seeds"),
-    methodOverride = require("method-override");
+    seedDB      = require("./seeds")
     
 //requiring routes
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index")
     
-//var url = process.env.DATABASE_URL;
 mongoose.connect("mongodb://dorota:dorota1@ds225543.mlab.com:25543/backpack");
-// console:
-// export DATABASE_URL=mongodb://localhost/yelp_camp_v9
-
-// mongoose.connect("mongodb://localhost/yelp_camp_v9");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-app.use(methodOverride('_method'));
-app.use(cookieParser('secret'));
-
+app.use(methodOverride("_method"));
+app.use(flash());
 // seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "How to be the best programmer",
+    secret: "There is no spoon",
     resave: false,
     saveUninitialized: false
 }));
-
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -48,16 +38,16 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
    res.locals.currentUser = req.user;
-   res.locals.success = req.flash('success');
-   res.locals.error = req.flash('error');
+   res.locals.error = req.flash("error");
+   res.locals.success = req.flash("success");
    next();
 });
-
 
 app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT || 3008, process.env.IP, function(){
+
+app.listen(process.env.PORT || 3003, process.env.IP, function(){
    console.log("The YelpCamp Server Has Started!");
 });
