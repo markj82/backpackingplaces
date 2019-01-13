@@ -15,8 +15,10 @@ var express     = require("express"),
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index")
-    
-mongoose.connect("mongodb://dorota:dorota1@ds225543.mlab.com:25543/backpack");
+   
+var url = process.env.DATABASE_URL;
+mongoose.connect(url);
+// mongoose.connect("mongodb://dorota:dorota1@ds225543.mlab.com:25543/backpack");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
