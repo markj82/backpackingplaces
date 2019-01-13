@@ -1,7 +1,8 @@
-# YelpCamp project from Udemy by Colt Steele
+# YelpCamp Project
 
-Web App that allows adding favourite backpacking places. Build with Node.js, EJS, MongoDB and Passport Authentication.
+Web App from Udemy Bootcamp by Colt Steele. In this project we can add favourite backpacking places.
+Build with Node.js, EJS, MongoDB and Passport Authentication.
 
-## To check this out simply click on the link below
+### To check this out simply click on the link below
 
 [https://gentle-reef-22600.herokuapp.com](https://gentle-reef-22600.herokuapp.com)
